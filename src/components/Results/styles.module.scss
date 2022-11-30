@@ -1,0 +1,14 @@
+.results {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	column-gap: 50px;
+	row-gap: 50px;
+	background-color: var(--darkBlack);
+}
+
+@media only screen and (max-width: 768px) {
+	.results {
+		column-gap: 25px;
+	}
+}
