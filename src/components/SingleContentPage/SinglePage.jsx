@@ -8,8 +8,6 @@ import SingleVideoPage from './SingleVideoPage'
 import Myloader from 'react-spinners/ClipLoader'
 import Carousel from '../Carousel/Carousel'
 
-import $ from 'jquery'
-
 function useQuery() {
 	const { search } = useLocation()
 
@@ -42,7 +40,7 @@ async function getMovieDetails(id) {
 async function getStreamURLS(episodeId, mediaId, server) {
 	try {
 		let res = await fetch(
-			`https://api.consumet.org/movies/flixhq/watch?episodeId=${episodeId}&mediaId=${mediaId}&server=upcloud`
+			`https://api.consumet.org/movies/flixhq/watch?episodeId=${episodeId}&mediaId=${mediaId}&server=${server}`
 		)
 		res = await res.json()
 		return res
@@ -70,21 +68,10 @@ function cleanStreamData(streamData) {
 }
 
 const SinglePage = () => {
-	$(function () {
-		$('.ico').on('click', function () {
-			$('.ico').toggleClass('press', 1000)
-		})
-	})
-	const [content, setContent] = useState()
-	const [similarMovies, setSimilarMovies] = useState()
-	const [isLoading, setIsLoading] = useState(false)
 	// eslint-disable-next-line
+
+	const [isLoading, setIsLoading] = useState(false)
 	const [color, setColor] = useState('grey')
-	const history = useHistory()
-	const { id, mediaType } = useParams()
-
-	// refactor this.
-
 	const [movieDetails, setMovieDetails] = useState({})
 	const [streamData, setStreamData] = useState({})
 	const [episode, setEpisode] = useState({})
@@ -116,7 +103,11 @@ const SinglePage = () => {
 		if (Object.keys(episode).length === 0) return
 
 		async function changeEpisode() {
-			let streamDataObj = await getStreamURLS(episode.id, query.get('id'))
+			let streamDataObj = await getStreamURLS(
+				episode.id,
+				query.get('id'),
+				'upcloud'
+			)
 			cleanStreamData(streamDataObj)
 			setStreamData(streamDataObj, setIsLoading(false))
 		}
@@ -221,17 +212,23 @@ const SinglePage = () => {
 											)}
 										</ul>
 									</div>
-
-									<div className='videopage'>
-										{movieDetails && (
-											<SingleVideoPage
-												title={movieDetails.title}
-												streamData={streamData}
-											/>
-										)}
-									</div>
 								</div>
 							</div>
+						)}
+					</div>
+
+					<div className='videopage'>
+						{movieDetails && (
+							<SingleVideoPage
+								title={movieDetails.title}
+								streamData={streamData}
+								getStreamURLS={getStreamURLS}
+								episodeId={episode.id}
+								queryGetId={query.get('id')}
+								cleanStreamData={cleanStreamData}
+								setStreamData={setStreamData}
+								setIsLoading={setIsLoading}
+							/>
 						)}
 					</div>
 

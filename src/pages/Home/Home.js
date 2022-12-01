@@ -1,8 +1,11 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import SingleData from '../../components/SingleData/SingleData'
 import './Home.css'
 import { Link } from 'react-router-dom'
+
+import LocalSearch from '../../components/Search/LocalSearch'
 
 import Navbar from '../../components/HomeNav/HomeNav'
 import Myloader from 'react-spinners/PuffLoader'
@@ -20,6 +23,8 @@ const Home = () => {
 	const [trendingTvShows, setTrendingTvShows] = useState([])
 	const [latestMovies, setLatestMovies] = useState([])
 	const [latestTvShows, setLatestTvShows] = useState([])
+
+	const history = useHistory()
 
 	useEffect(() => {
 		window.scroll(0, 0)
@@ -95,9 +100,17 @@ const Home = () => {
 				</div>
 			) : (
 				<>
-					<div style={{ marginTop: '-10px' }} className='bg__home'>
+					<LocalSearch
+						onSearch={(q) => {
+							history.push(`/search/${q}`)
+						}}
+						placehold='Search Movies'
+					/>
+
+					<div className='bg__home'>
 						<Navbar />
 					</div>
+
 					<>
 						<Slider title='Trending Movies' data={trendingMoviesData} />
 						<Slider title='Trending TV Shows' data={trendingTvShows} />

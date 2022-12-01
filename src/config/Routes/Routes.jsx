@@ -8,6 +8,7 @@ import MainNav from '../../components/MainNavbar/MainNav'
 import Footer from '../../components/Footer/Footer'
 import CopyWrite from '../../components/CopyWrite__footer/LastFooter'
 import BottomNav from '../../components/MainNavbar/BottomNav'
+import SearchResults from '../../pages/SearchResults'
 
 const Routes = () => {
 	return (
@@ -18,6 +19,7 @@ const Routes = () => {
 				<Switch>
 					<Route exact path='/' component={Home} />
 					<Route path='/watch' children={<SinglePage />} />
+					<Route path='/search/:query' children={<SearchResults />} />
 					{/* <Route path='/all-movies' component={Movies} />
 					<Route path='/treading' component={Treading} />
 					<Route path='/all-series' component={TvSeries} />

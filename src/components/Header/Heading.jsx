@@ -1,12 +1,12 @@
-import "./Heading.css";
-import mySvg from "../../images/hbo-max.svg";
+import './Heading.css'
+import mySvg from '../../images/wiit-logo.png'
 
 const Heading = () => {
-  return (
-    <div className="MainHeading">
-      <img src={mySvg} alt="" className="logo2" />{" "}
-    </div>
-  );
-};
+	return (
+		<div className='MainHeading'>
+			<img src={mySvg} alt='' className='logo2' />{' '}
+		</div>
+	)
+}
 
-export default Heading;
+export default Heading
