@@ -5,8 +5,6 @@ import './SinglePage.css'
 import NetPlayer from 'netplayer'
 
 const SingleVideoPage = ({ streamData, title }) => {
-	// Stops youtube video playing in background after close
-
 	return (
 		<>
 			<div className='wrapper'>
@@ -14,7 +12,7 @@ const SingleVideoPage = ({ streamData, title }) => {
 					<div
 						className='btn btn-success px-4'
 						data-toggle='modal'
-						data-target={`#${title}`}
+						data-target={`#${title && title.split(' ')[0]}`}
 					>
 						<span>
 							<PlayCircleIcon
@@ -29,8 +27,8 @@ const SingleVideoPage = ({ streamData, title }) => {
 			</div>
 
 			<div
-				className='modal fade myModal '
-				id={`${title}`}
+				className='modal fade myModal'
+				id={`${title && title.split(' ')[0]}`}
 				tabIndex={`-1`}
 				aria-labelledby='exampleModalLabel'
 			>
@@ -66,7 +64,6 @@ const SingleVideoPage = ({ streamData, title }) => {
 											lowLatencyMode: true,
 										}}
 										autoPlay={true}
-										autoSave={true}
 									/>
 								)}
 							</div>

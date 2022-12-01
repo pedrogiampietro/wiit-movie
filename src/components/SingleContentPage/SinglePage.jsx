@@ -77,7 +77,6 @@ const SinglePage = () => {
 	})
 	const [content, setContent] = useState()
 	const [similarMovies, setSimilarMovies] = useState()
-	const [video, setVideo] = useState()
 	const [isLoading, setIsLoading] = useState(false)
 	// eslint-disable-next-line
 	const [color, setColor] = useState('grey')
@@ -186,7 +185,7 @@ const SinglePage = () => {
 										{movieDetails.genres?.map((n, i) => {
 											return (
 												<p
-													key={n.id}
+													key={n}
 													style={{ fontSize: '13px', marginLeft: '6px' }}
 													className='mygenre'
 												>

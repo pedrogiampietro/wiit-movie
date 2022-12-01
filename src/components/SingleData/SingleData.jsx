@@ -13,47 +13,25 @@ const PlayArrowRoundedIcon = styled(MuiPlayArrowRoundedIcon)(`
   }
   
 `)
-const SingleData = ({
-	poster_path,
-	title,
-	name,
-	id,
-	vote_average,
-	release_date,
-	first_air_date,
-	mediaType,
-	media_type,
-}) => {
-	const history = useHistory()
-
-	const handleClick = () => {
-		history.push(`/${mediaType || media_type}/${id}`)
-	}
-	const setVoteClass = (vote) => {
-		if (vote >= 8) {
-			return 'green'
-		} else if (vote >= 6) {
-			return 'orange'
-		} else {
-			return 'red'
-		}
-	}
+const SingleData = ({ title, type, image, releaseDate }) => {
+	// const setVoteClass = (vote) => {
+	// 	if (vote >= 8) {
+	// 		return 'green'
+	// 	} else if (vote >= 6) {
+	// 		return 'orange'
+	// 	} else {
+	// 		return 'red'
+	// 	}
+	// }
 
 	return (
 		<>
-			<div
-				style={{ color: 'white' }}
-				className='SingleDataMedia'
-				// onClick={handleClick}
-			>
-				<span className={` tag ${setVoteClass(vote_average)} vote__tag`}>
+			<div style={{ color: 'white' }} className='SingleDataMedia'>
+				{/* <span className={` tag ${setVoteClass(vote_average)} vote__tag`}>
 					{Math.round(vote_average * 10) / 10}
-				</span>
+				</span> */}
 
-				<img
-					src={poster_path ? `${img_300}/${poster_path}` : unavailable}
-					alt=''
-				/>
+				<img src={image ? image : unavailable} alt='' />
 				<div className='read__more'>
 					<PlayArrowRoundedIcon
 						style={{
@@ -68,8 +46,7 @@ const SingleData = ({
 				</div>
 				<div className='SingleDataDetails'>
 					<h6>
-						{title || name}(
-						{(first_air_date || release_date || '-----').substring(0, 4)})
+						{title}({(releaseDate || '-----').substring(0, 4)})
 					</h6>
 				</div>
 			</div>
