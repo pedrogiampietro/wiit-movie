@@ -73,7 +73,6 @@ TextField {
 @media screen and (max-width: 560px) {
 	.search {
 		width: 90%;
-		padding-right: 0;
 	}
 	.search__icon {
 		background: linear-gradient(45deg, #00aeff, #a68eff);

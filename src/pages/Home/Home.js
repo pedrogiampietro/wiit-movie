@@ -112,77 +112,11 @@ const Home = () => {
 					</div>
 
 					<>
-						<Slider title='Trending Movies' data={trendingMoviesData} />
-						<Slider title='Trending TV Shows' data={trendingTvShows} />
-						<Slider title='Latest Movies' data={latestMovies} />
-						<Slider title='Latest TV Shows' data={latestTvShows} />
+						<Slider title='Filmes em alta' data={trendingMoviesData} />
+						<Slider title='Series em Alta' data={trendingTvShows} />
+						<Slider title='Últimos filmes' data={latestMovies} />
+						<Slider title='Últimas séries' data={latestTvShows} />
 					</>
-					{/* <div className='TreadingHome3 pt-4'>
-						<div className='title__home'>
-							<div className='btn__home'>
-								<h6>
-									Movies On Air &#160;
-									<span style={{ paddingTop: '10px' }}>&#11166;</span>
-								</h6>
-							</div>
-							<div className='view__more'>
-								<Link to='/all-movies' style={{ textDecoration: 'none' }}>
-									<p>View more &#187;</p>
-								</Link>
-							</div>
-						</div>
-
-						<div className='ListContent2'>
-							{allContent &&
-								allContent.map((n) => (
-									<SingleData key={n.id} {...n} mediaType='movie' />
-								))}
-						</div>
-					</div>
-					<hr />
-					<div className='TreadingHome3'>
-						<div className='title__home'>
-							<div className='btn__home'>
-								<h6>
-									TvSeries On Air &#160;
-									<span style={{ paddingTop: '10px' }}>&#11166;</span>
-								</h6>
-							</div>
-							<div className='view__more'>
-								<Link to='/all-series' style={{ textDecoration: 'none' }}>
-									<p>View more &#187;</p>
-								</Link>
-							</div>
-						</div>
-						<div className='ListContent2'>
-							{popularSeries &&
-								popularSeries.map((n) => (
-									<SingleData key={n.id} mediaType='tv' {...n} />
-								))}
-						</div>
-					</div>
-					<hr />
-					<div className='TreadingHome3'>
-						<div className='title__home'>
-							<div className='btn__home' style={{ width: '160px' }}>
-								<h6>
-									Top Rated &#160;
-									<span style={{ paddingTop: '10px' }}>&#11166;</span>
-								</h6>
-							</div>
-							<div className='view__more'>
-								<Link to='/all-movies' style={{ textDecoration: 'none' }}>
-									<p>View more &#187;</p>
-								</Link>
-							</div>
-						</div>
-						<div className='ListContent2'>
-							{topRated &&
-								topRated.map((n) => (
-									<SingleData key={n.id} mediaType='movie' {...n} />
-								))}
-						</div>
-					</div> */}
 				</>
 			)}
 		</>
