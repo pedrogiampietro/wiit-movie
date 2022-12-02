@@ -1,0 +1,1 @@
+export { VimePlayerComponent } from './Player'

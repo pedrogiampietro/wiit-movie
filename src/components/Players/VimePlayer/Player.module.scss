@@ -1,0 +1,12 @@
+.player {
+  // --vm-settings-max-height: 200px;
+}
+
+.icon {
+  --width: 8%;
+  width: var(--width);
+  height: var(--width);
+  cursor: pointer;
+  object-fit: contain;
+}
+

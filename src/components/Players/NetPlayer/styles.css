@@ -1,0 +1,13 @@
+.wrapper {
+	transition: all 0.2s ease-in-out;
+	transform: none !important;
+	margin-top: 4rem;
+}
+
+.videoDiv {
+	width: 98vw;
+	height: 70vh;
+	color: white;
+	display: flex;
+	flex-direction: row;
+}

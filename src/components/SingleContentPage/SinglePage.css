@@ -297,7 +297,6 @@ b {
 .video-options {
 	display: flex;
 	flex-direction: column;
-	margin-left: 1rem;
 	background-image: linear-gradient(
 		to right,
 		rgb(11, 11, 58) 200px,
@@ -507,8 +506,6 @@ hr {
 	}
 }
 @media screen and (max-width: 463px) {
-	.poster__img {
-	}
 	.backdrop__img {
 		width: 300px !important;
 		height: 180px !important;
@@ -548,8 +545,6 @@ hr {
 	}
 	.open__modal {
 		height: 900px !important;
-	}
-	.genre p {
 	}
 }
 
@@ -603,4 +598,47 @@ hr {
 	.modal-video {
 		margin-top: 0px !important;
 	}
+}
+
+.video-player-skeleton {
+	background: transparent;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	width: 90vw;
+	height: 70vh;
+
+	color: white;
+
+	margin: 4rem auto;
+
+	border-radius: 5px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.player-options-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #f91064;
+	border-radius: 10px;
+	width: 10%;
+	padding: 0.9rem;
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: bold;
+	font-size: 1rem;
+	color: #fff;
+	border: 0px;
+	margin: 0.6rem auto 0rem auto;
+	cursor: pointer;
+	outline: none;
+}
+
+.player-options-button:hover {
+	transition: 0.4s ease;
+	opacity: 0.8;
+	cursor: pointer;
 }

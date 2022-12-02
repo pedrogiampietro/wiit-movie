@@ -1,10 +1,15 @@
-import axios from 'axios'
 import React, { useEffect, useState, useMemo } from 'react'
-import { useLocation, useHistory, useParams } from 'react-router-dom'
+import { VimePlayerComponent } from '../Players/VimePlayer'
+import { useLocation } from 'react-router-dom'
 import { unavailable } from '../../api/config/DefaultImages'
 
+import {
+	getFromLocalStorage,
+	saveToLocalStorage,
+} from '../../utils/localStorage'
+
 import './SinglePage.css'
-import SingleVideoPage from './SingleVideoPage'
+import { NetPlayerComponent } from '../Players/NetPlayer/SingleVideoPage'
 import Myloader from 'react-spinners/ClipLoader'
 
 import {
@@ -17,65 +22,7 @@ import {
 
 import accordionStyles from './accordionStyles.module.scss'
 import styles from './styles.module.scss'
-
-function useQuery() {
-	const { search } = useLocation()
-
-	return useMemo(() => new URLSearchParams(search), [search])
-}
-
-function renameKey(object, oldKey, newKey) {
-	if (oldKey !== newKey) {
-		Object.defineProperty(
-			object,
-			newKey,
-			Object.getOwnPropertyDescriptor(object, oldKey)
-		)
-		delete object[oldKey]
-	}
-}
-
-async function getMovieDetails(id) {
-	try {
-		let res = await fetch(
-			`https://api.consumet.org/movies/flixhq/info?id=${id}`
-		)
-		res = await res.json()
-		return res
-	} catch (e) {
-		console.log(e)
-	}
-}
-
-async function getStreamURLS(episodeId, mediaId, server) {
-	try {
-		let res = await fetch(
-			`https://api.consumet.org/movies/flixhq/watch?episodeId=${episodeId}&mediaId=${mediaId}&server=${server}`
-		)
-		res = await res.json()
-		return res
-	} catch (e) {
-		console.log(e)
-	}
-}
-
-function cleanStreamData(streamData) {
-	streamData?.sources?.map(function (item) {
-		delete item.isM3U8
-		return item
-	})
-
-	streamData?.sources?.forEach((obj) => {
-		renameKey(obj, 'url', 'file')
-		renameKey(obj, 'quality', 'label')
-	})
-
-	streamData?.subtitles?.forEach((obj) => {
-		renameKey(obj, 'url', 'file')
-		renameKey(obj, 'lang', 'language')
-		obj['lang'] = obj['language']
-	})
-}
+import { ConstructionOutlined } from '@mui/icons-material'
 
 const SinglePage = () => {
 	// eslint-disable-next-line
@@ -86,11 +33,79 @@ const SinglePage = () => {
 	const [streamData, setStreamData] = useState({})
 	const [episode, setEpisode] = useState({})
 	const [seasonData, setSeasonData] = useState({})
+	const [currentEpisode, setCurrentEpisode] = useState(null)
 	const query = useQuery()
+
+	function useQuery() {
+		const { search } = useLocation()
+
+		return useMemo(() => new URLSearchParams(search), [search])
+	}
+
+	function renameKey(object, oldKey, newKey) {
+		if (oldKey !== newKey) {
+			Object.defineProperty(
+				object,
+				newKey,
+				Object.getOwnPropertyDescriptor(object, oldKey)
+			)
+			delete object[oldKey]
+		}
+	}
+
+	async function getMovieDetails(id) {
+		try {
+			let res = await fetch(
+				`https://api.consumet.org/movies/flixhq/info?id=${id}`
+			)
+			res = await res.json()
+			return res
+		} catch (e) {
+			console.log(e)
+		}
+	}
+
+	async function getStreamURLS(episodeId, mediaId, server) {
+		setIsLoading(true)
+
+		try {
+			let res = await fetch(
+				`https://api.consumet.org/movies/flixhq/watch?episodeId=${episodeId}&mediaId=${mediaId}&server=${server}`
+			)
+			res = await res.json()
+
+			setTimeout(() => {
+				setIsLoading(false)
+			}, 1000)
+
+			return res
+		} catch (e) {
+			console.log(e)
+		}
+	}
+
+	function cleanStreamData(streamData) {
+		streamData?.sources?.map(function (item) {
+			delete item.isM3U8
+			return item
+		})
+
+		streamData?.sources?.forEach((obj) => {
+			renameKey(obj, 'url', 'file')
+			renameKey(obj, 'quality', 'label')
+		})
+
+		streamData?.subtitles?.forEach((obj) => {
+			renameKey(obj, 'url', 'file')
+			renameKey(obj, 'lang', 'language')
+			obj['lang'] = obj['language']
+		})
+	}
 
 	useEffect(() => {
 		async function fetchData() {
 			let movieDetails = await getMovieDetails(query.get('id'))
+
 			setMovieDetails(movieDetails, setEpisode(movieDetails.episodes[0]))
 
 			let episodes = movieDetails.episodes
@@ -123,6 +138,33 @@ const SinglePage = () => {
 		}
 		changeEpisode()
 	}, [episode, query])
+
+	// query.get(id) -> tv/watch-slow-horses-full-78697
+	// episode.id -> 1241293
+
+	// set current episode if found in local storage
+	useEffect(() => {
+		if (movieDetails.episodes == null) return
+		const savedEpisode = getFromLocalStorage(`${episode.id}-episodeNum`)
+		const getSaved = movieDetails.episodes.filter(
+			(ep) => ep.id === savedEpisode
+		)
+
+		setTimeout(() => setEpisode(getSaved[0]), 2000)
+
+		if (savedEpisode != null) {
+			setCurrentEpisode(savedEpisode)
+		} else {
+			setCurrentEpisode(movieDetails?.episodes?.at(-1).id)
+		}
+	}, [movieDetails.episodes])
+
+	// user changes episode: save current episode to local storage and get new streaming url
+	useEffect(() => {
+		if (currentEpisode == null || episode.id == null) return
+		saveToLocalStorage(`${episode.id}-episodeNum`, currentEpisode)
+		getStreamURLS(episode.id, query.get('id'), 'upcloud')
+	}, [currentEpisode])
 
 	return (
 		<>
@@ -227,29 +269,10 @@ const SinglePage = () => {
 						)}
 					</div>
 
-					<div className='videopage'>
-						{movieDetails && (
-							<SingleVideoPage
-								title={movieDetails.title}
-								episodeSeason={episode.season}
-								episodeNumber={episode.number}
-								streamData={streamData}
-								getStreamURLS={getStreamURLS}
-								episodeId={episode.id}
-								queryGetId={query.get('id')}
-								cleanStreamData={cleanStreamData}
-								setStreamData={setStreamData}
-								setIsLoading={setIsLoading}
-							/>
-						)}
-					</div>
-
-					{console.log('movieDetails', movieDetails)}
-
 					{movieDetails.type === 'TV Series' ? (
 						<div className={styles.rightDiv}>
 							<div className={styles.episodeTitle}>
-								Now playing: S{episode.season} E{episode.number}:{' '}
+								Você está assistindo: S{episode.season} E{episode.number}:{' '}
 								{episode.title}
 							</div>
 							<div className={styles.seasonsList}>
@@ -302,6 +325,20 @@ const SinglePage = () => {
 					) : (
 						''
 					)}
+
+					{console.log('episode', episode)}
+
+					<div className='videopage'>
+						{!episode && <div className='video-player-skeleton' />}
+						{!isLoading && movieDetails && episode ? (
+							<VimePlayerComponent
+								title={movieDetails.title}
+								episodeNumber={episode.number}
+								url={streamData?.sources?.at(-1)?.file}
+								subtitles={streamData.subtitles}
+							/>
+						) : null}
+					</div>
 				</>
 			)}
 		</>
