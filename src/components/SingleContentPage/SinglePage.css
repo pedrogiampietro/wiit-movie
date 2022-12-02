@@ -287,7 +287,7 @@ b {
 }
 
 .videoDiv {
-	width: 100vw;
+	width: 98vw;
 	height: 70vh;
 	color: white;
 	display: flex;
@@ -307,11 +307,23 @@ b {
 	border: 1px solid #333 !important;
 }
 
+.netplayer-container {
+	margin-left: 1rem !important;
+}
+
+.styled-input-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5rem;
+}
+
 .styled-input-single {
 	position: relative;
-	padding: 20px 0 20px 40px;
+	padding: 1rem 4rem;
 	text-align: left;
 	margin-left: 1rem;
+	border: 1px dashed #fff;
 }
 .styled-input-single label {
 	cursor: pointer;
@@ -324,7 +336,7 @@ b {
 	border-radius: 50%;
 }
 .styled-input-single label:before {
-	left: 0;
+	left: 15px;
 	width: 30px;
 	height: 30px;
 	margin: -15px 0 0;
@@ -332,7 +344,7 @@ b {
 	box-shadow: 0 0 1px grey;
 }
 .styled-input-single label:after {
-	left: 5px;
+	left: 20px;
 	width: 20px;
 	height: 20px;
 	margin: -10px 0 0;
@@ -397,6 +409,10 @@ hr {
 	clear: both;
 }
 .two-column {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 	margin: 0 0 40px;
 }
 @media (min-width: 860px) {
@@ -405,6 +421,12 @@ hr {
 	}
 }
 .two-column .single-col {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	margin: 0 0 40px;
+
 	margin: 0 0 40px;
 }
 @media (min-width: 860px) {

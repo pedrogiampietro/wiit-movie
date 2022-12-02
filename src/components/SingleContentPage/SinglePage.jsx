@@ -1,12 +1,22 @@
 import axios from 'axios'
 import React, { useEffect, useState, useMemo } from 'react'
 import { useLocation, useHistory, useParams } from 'react-router-dom'
-import { img_300, img_500, unavailable } from '../../api/config/DefaultImages'
-import SingleData from '../SingleData/SingleData'
+import { unavailable } from '../../api/config/DefaultImages'
+
 import './SinglePage.css'
 import SingleVideoPage from './SingleVideoPage'
 import Myloader from 'react-spinners/ClipLoader'
-import Carousel from '../Carousel/Carousel'
+
+import {
+	Accordion,
+	AccordionItem,
+	AccordionItemHeading,
+	AccordionItemButton,
+	AccordionItemPanel,
+} from 'react-accessible-accordion'
+
+import accordionStyles from './accordionStyles.module.scss'
+import styles from './styles.module.scss'
 
 function useQuery() {
 	const { search } = useLocation()
@@ -50,17 +60,17 @@ async function getStreamURLS(episodeId, mediaId, server) {
 }
 
 function cleanStreamData(streamData) {
-	streamData.sources.map(function (item) {
+	streamData?.sources?.map(function (item) {
 		delete item.isM3U8
 		return item
 	})
 
-	streamData.sources.forEach((obj) => {
+	streamData?.sources?.forEach((obj) => {
 		renameKey(obj, 'url', 'file')
 		renameKey(obj, 'quality', 'label')
 	})
 
-	streamData.subtitles.forEach((obj) => {
+	streamData?.subtitles?.forEach((obj) => {
 		renameKey(obj, 'url', 'file')
 		renameKey(obj, 'lang', 'language')
 		obj['lang'] = obj['language']
@@ -221,6 +231,8 @@ const SinglePage = () => {
 						{movieDetails && (
 							<SingleVideoPage
 								title={movieDetails.title}
+								episodeSeason={episode.season}
+								episodeNumber={episode.number}
 								streamData={streamData}
 								getStreamURLS={getStreamURLS}
 								episodeId={episode.id}
@@ -232,25 +244,64 @@ const SinglePage = () => {
 						)}
 					</div>
 
-					<div className='all__cast px-5 pt-5'>
-						<div className='cast__title'>
-							<h2>Cast</h2>
+					{console.log('movieDetails', movieDetails)}
+
+					{movieDetails.type === 'TV Series' ? (
+						<div className={styles.rightDiv}>
+							<div className={styles.episodeTitle}>
+								Now playing: S{episode.season} E{episode.number}:{' '}
+								{episode.title}
+							</div>
+							<div className={styles.seasonsList}>
+								<Accordion
+									allowZeroExpanded={true}
+									className={accordionStyles.accordion}
+								>
+									{Object.keys(seasonData).map((season) => {
+										return (
+											<AccordionItem
+												className={accordionStyles.accordion__item}
+												key={season}
+											>
+												<AccordionItemHeading>
+													<AccordionItemButton
+														className={accordionStyles.accordion__button}
+													>
+														Season {season}
+													</AccordionItemButton>
+												</AccordionItemHeading>
+												<div className={styles.episodesList}>
+													{seasonData[season].map((ep) => {
+														return (
+															<AccordionItemPanel
+																className={accordionStyles.accordion__panel}
+																key={ep.id}
+															>
+																<div
+																	className={`${styles.episode} ${
+																		ep.id === episode.id
+																			? styles.activeEpisode
+																			: ''
+																	}`}
+																	onClick={() => {
+																		setEpisode(ep)
+																	}}
+																>
+																	{`Episode ${ep.number}`}
+																</div>
+															</AccordionItemPanel>
+														)
+													})}
+												</div>
+											</AccordionItem>
+										)
+									})}
+								</Accordion>
+							</div>
 						</div>
-						<div>
-							<Carousel casts={movieDetails.casts} />
-						</div>
-					</div>
-					{/* <div className='similar__shows'>
-						<div className='btn__title'>
-							<h5>You May Also Like </h5>
-						</div>
-						<div className='similar'>
-							{similarMovies &&
-								similarMovies.map((n) => (
-									<SingleData key={n.id} {...n} mediaType='movie' />
-								))}
-						</div>
-					</div> */}
+					) : (
+						''
+					)}
 				</>
 			)}
 		</>

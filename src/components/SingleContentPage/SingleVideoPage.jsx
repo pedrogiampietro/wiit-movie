@@ -9,6 +9,8 @@ const SingleVideoPage = ({
 	cleanStreamData,
 	setStreamData,
 	setIsLoading,
+	episodeSeason,
+	episodeNumber,
 }) => {
 	async function changeServer(e) {
 		const server = e.target.id
@@ -26,7 +28,6 @@ const SingleVideoPage = ({
 						<NetPlayer
 							sources={streamData.sources}
 							subtitles={streamData.subtitles}
-							// onVmr
 							hlsConfig={{
 								maxLoadingDelay: 4,
 								minAutoBitrate: 0,
@@ -35,36 +36,51 @@ const SingleVideoPage = ({
 							autoPlay={true}
 						/>
 					)}
-					<aside className='video-options'>
-						<h1>Opção de servidores</h1>
+				</div>
+				<aside className='video-options'>
+					<h1 style={{ color: '#fff' }}>Opção de servidores</h1>
 
-						<hr />
-						<div className='two-column'>
-							<div className='single-col'>
-								<div className='styled-input-container'>
-									<div className='styled-input-single'>
-										<input
-											type='radio'
-											name='fieldset-1'
-											id='upcloud'
-											onClick={(e) => changeServer(e)}
-										/>
-										<label htmlFor='upcloud'>UpCloud</label>
-									</div>
-									<div className='styled-input-single'>
-										<input
-											type='radio'
-											name='fieldset-1'
-											id='vidcloud'
-											onClick={(e) => changeServer(e)}
-										/>
-										<label htmlFor='vidcloud'>Vidcloud</label>
-									</div>
+					<hr />
+					<div className='two-column'>
+						<div className='single-col'>
+							<div className='styled-input-container'>
+								<div className='styled-input-single'>
+									<input
+										type='radio'
+										name='fieldset-1'
+										id='upcloud'
+										onClick={(e) => changeServer(e)}
+									/>
+									<label htmlFor='upcloud' style={{ color: '#fff' }}>
+										UpCloud
+									</label>
+								</div>
+								<div className='styled-input-single'>
+									<input
+										type='radio'
+										name='fieldset-1'
+										id='vidcloud'
+										onClick={(e) => changeServer(e)}
+									/>
+									<label htmlFor='vidcloud' style={{ color: '#fff' }}>
+										Vidcloud
+									</label>
+								</div>
+								<div className='styled-input-single'>
+									<input
+										type='radio'
+										name='fieldset-1'
+										id='mixdrop'
+										onClick={(e) => changeServer(e)}
+									/>
+									<label htmlFor='mixdrop' style={{ color: '#fff' }}>
+										MixDrop
+									</label>
 								</div>
 							</div>
 						</div>
-					</aside>
-				</div>
+					</div>
+				</aside>
 			</div>
 		</>
 	)

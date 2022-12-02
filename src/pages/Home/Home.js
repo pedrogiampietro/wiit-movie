@@ -1,9 +1,5 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import SingleData from '../../components/SingleData/SingleData'
-import './Home.css'
-import { Link } from 'react-router-dom'
 
 import LocalSearch from '../../components/Search/LocalSearch'
 
@@ -11,14 +7,12 @@ import Navbar from '../../components/HomeNav/HomeNav'
 import Myloader from 'react-spinners/PuffLoader'
 import Slider from '../../components/Slider'
 
+import './Home.css'
+
 const Home = () => {
-	const [allContent, setAllContent] = useState([])
-	const [popularSeries, setPopularSeries] = useState([])
-	const [topRated, setTopRated] = useState([])
-	const [isLoading, setIsLoading] = useState(false)
 	// eslint-disable-next-line
 	let [color, setColor] = useState('grey')
-
+	const [isLoading, setIsLoading] = useState(false)
 	const [trendingMoviesData, setTrendingMoviesData] = useState([])
 	const [trendingTvShows, setTrendingTvShows] = useState([])
 	const [latestMovies, setLatestMovies] = useState([])
