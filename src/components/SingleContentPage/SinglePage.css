@@ -191,7 +191,11 @@
 	font-size: 15px;
 }
 .videopage {
-	margin-bottom: 10px;
+	width: 90vw;
+	color: white;
+	margin: 4rem auto;
+	border-radius: 5px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
 	z-index: 1200;
 }
 .year {

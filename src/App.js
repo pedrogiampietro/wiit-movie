@@ -14,7 +14,6 @@ import './App.css'
 
 function App() {
 	const [spinner, setSpinner] = useState(true)
-
 	// eslint-disable-next-line
 	let [color, setColor] = useState('grey')
 

@@ -125,7 +125,7 @@ const SinglePage = () => {
 	}, [query])
 
 	useEffect(() => {
-		if (Object.keys(episode).length === 0) return
+		if (episode !== undefined && Object?.keys(episode).length === 0) return
 
 		async function changeEpisode() {
 			let streamDataObj = await getStreamURLS(
@@ -146,16 +146,11 @@ const SinglePage = () => {
 	useEffect(() => {
 		if (movieDetails.episodes == null) return
 		const savedEpisode = getFromLocalStorage(`${episode.id}-episodeNum`)
-		const getSaved = movieDetails.episodes.filter(
-			(ep) => ep.id === savedEpisode
-		)
-
-		setTimeout(() => setEpisode(getSaved[0]), 2000)
 
 		if (savedEpisode != null) {
 			setCurrentEpisode(savedEpisode)
 		} else {
-			setCurrentEpisode(movieDetails?.episodes?.at(-1).id)
+			setCurrentEpisode(movieDetails?.episodes[0]?.id)
 		}
 	}, [movieDetails.episodes])
 
@@ -272,8 +267,8 @@ const SinglePage = () => {
 					{movieDetails.type === 'TV Series' ? (
 						<div className={styles.rightDiv}>
 							<div className={styles.episodeTitle}>
-								Você está assistindo: S{episode.season} E{episode.number}:{' '}
-								{episode.title}
+								Você está assistindo: S{episode?.season} E{episode?.number}:{' '}
+								{episode?.title}
 							</div>
 							<div className={styles.seasonsList}>
 								<Accordion
@@ -302,7 +297,7 @@ const SinglePage = () => {
 															>
 																<div
 																	className={`${styles.episode} ${
-																		ep.id === episode.id
+																		ep?.id === episode?.id
 																			? styles.activeEpisode
 																			: ''
 																	}`}
@@ -310,7 +305,7 @@ const SinglePage = () => {
 																		setEpisode(ep)
 																	}}
 																>
-																	{`Episode ${ep.number}`}
+																	{`Episode ${ep?.number}`}
 																</div>
 															</AccordionItemPanel>
 														)
@@ -326,18 +321,13 @@ const SinglePage = () => {
 						''
 					)}
 
-					{console.log('episode', episode)}
-
 					<div className='videopage'>
-						{!episode && <div className='video-player-skeleton' />}
-						{!isLoading && movieDetails && episode ? (
-							<VimePlayerComponent
-								title={movieDetails.title}
-								episodeNumber={episode.number}
-								url={streamData?.sources?.at(-1)?.file}
-								subtitles={streamData.subtitles}
-							/>
-						) : null}
+						<VimePlayerComponent
+							title={movieDetails.title}
+							episodeNumber={episode.number}
+							url={streamData?.sources?.at(-1)?.file}
+							subtitles={streamData.subtitles}
+						/>
 					</div>
 				</>
 			)}

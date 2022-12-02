@@ -43,6 +43,7 @@ export function VimePlayerComponent({
 		const savedTime = getFromLocalStorage(
 			`${title}-${episodeNumber}-currentTime`
 		)
+
 		if (savedTime != null) {
 			setTimeout(() => {
 				playerRef.current.currentTime = +savedTime
@@ -129,7 +130,7 @@ export function VimePlayerComponent({
 					style={{
 						'--vm-controls-spacing': '80px',
 						'--vm-control-icon-size': '80px',
-						'marginTop': '-20px',
+						marginTop: '-20px',
 					}}
 				>
 					<img
