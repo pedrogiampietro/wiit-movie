@@ -3,8 +3,8 @@
 <p align="center">
 <a href="https://github.com/pedrogiampietro/wiit-movie/actions"><img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/pedrogiampietro/wiit-movie/Build%20&%20deploy?style=flat-square"></a>
 <a href="https://github.com/pedrogiampietro/wiit-movie/blob/master/LICENSE.md"><img alt="GitHub license" src="https://img.shields.io/github/license/pedrogiampietro/wiit-movie?style=flat-square"></a>
-<a href="https://github.com/pedrogiampietro/wiit-movie/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/JamesHawkinss/movie-web?style=flat-square"></a>
-<a href="https://github.com/pedrogiampietro/wiit-movie/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/JamesHawkinss/movie-web?style=flat-square"></a><br/>
+<a href="https://github.com/pedrogiampietro/wiit-movie/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/pedrogiampietro/movie-web?style=flat-square"></a>
+<a href="https://github.com/pedrogiampietro/wiit-movie/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/pedrogiampietro/movie-web?style=flat-square"></a><br/>
 </p>
 
 
