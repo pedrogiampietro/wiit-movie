@@ -1,5 +1,5 @@
 import './Heading.css'
-import mySvg from '../../images/wiit-logo.png'
+import mySvg from '../../assets/images/wiit-logo.png'
 
 const Heading = () => {
 	return (

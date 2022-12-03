@@ -1,16 +1,18 @@
-import './SignIn.css'
-import TextField from '@mui/material/TextField'
-import GoogleIcon from '../../images/google.svg'
-import Box from '@mui/material/Box'
 import React, { useState } from 'react'
+import TextField from '@mui/material/TextField'
+import GoogleIcon from '../../assets/images/google.svg'
+import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import FilledInput from '@mui/material/FilledInput'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormControl from '@mui/material/FormControl'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import AppleIcon from '../../images/apple.ico'
-const SignIn = () => {
+import AppleIcon from '../../assets/images/apple.ico'
+
+import './SignIn.css'
+
+export function SignIn() {
 	const [values, setValues] = useState({
 		password: '',
 		showPassword: false,
@@ -37,21 +39,19 @@ const SignIn = () => {
 					<div className='login__right card'>
 						<div className='form__login'>
 							<div className='login__title'>
-								<h2>Create your free account</h2>
-								<p>No credit card required.</p>
+								<h2>Criar sua conta de graça!</h2>
+								<p>Não precisa de cartão.</p>
 							</div>
 							<div className='login__btns'>
 								<div className='google__login'>
 									<button className='google'>
-										{' '}
-										<img src={GoogleIcon} width='20' alt='' /> Continue with
+										<img src={GoogleIcon} width='20' alt='' /> Continuar com
 										Google
 									</button>
 								</div>
 								<div className='apple__login'>
 									<button className='apple'>
-										{' '}
-										<img src={AppleIcon} width='20' alt='' /> Continue with
+										<img src={AppleIcon} width='20' alt='' /> Continuar com
 										Apple
 									</button>
 								</div>
@@ -90,7 +90,7 @@ const SignIn = () => {
 									autoComplete='off'
 								>
 									<div className='sign_name'>
-										<h5>Username</h5>
+										<h5>Usuário</h5>
 										<TextField
 											sx={{}}
 											fullWidth
@@ -102,7 +102,7 @@ const SignIn = () => {
 										/>
 									</div>
 									<div className='sign_pass'>
-										<h5>Password</h5>
+										<h5>Senha</h5>
 
 										<FormControl variant='filled' size='small' fullWidth>
 											<FilledInput
@@ -131,9 +131,9 @@ const SignIn = () => {
 									</div>
 								</Box>
 								<div className='new__acc'>
-									<button>Create An Account</button>
+									<button>Criar conta</button>
 									<p>
-										Aready have an Account? <b>Sign in</b>
+										Você já tem uma conta? <b>Faça login aqui</b>
 									</p>
 								</div>
 							</div>
@@ -144,5 +144,3 @@ const SignIn = () => {
 		</>
 	)
 }
-
-export default SignIn

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { auth } from '../constants/auth'
-import { getFromLocalStorage, removeStorage } from '../utils/localStorage'
+import { getFromLocalStorage } from '../utils/localStorage'
 
 // function onSignOut() {
 // 	removeStorage(auth.TOKEN)
@@ -9,8 +9,8 @@ import { getFromLocalStorage, removeStorage } from '../utils/localStorage'
 // 	window.location.replace('/login')
 // }
 
-let isRefreshing = false
-let failedRequestQueue = []
+// let isRefreshing = false
+// let failedRequestQueue = []
 
 const limit = 20
 

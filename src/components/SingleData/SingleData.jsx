@@ -1,5 +1,4 @@
-import { useHistory } from 'react-router-dom'
-import { img_300, unavailable } from '../../assets/DefaultImages'
+import { unavailable } from '../../assets/DefaultImages'
 import './SingleData.css'
 import MuiPlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded'
 import { styled } from '@mui/material/styles'
@@ -13,24 +12,10 @@ const PlayArrowRoundedIcon = styled(MuiPlayArrowRoundedIcon)(`
   }
   
 `)
-const SingleData = ({ title, type, image, releaseDate }) => {
-	// const setVoteClass = (vote) => {
-	// 	if (vote >= 8) {
-	// 		return 'green'
-	// 	} else if (vote >= 6) {
-	// 		return 'orange'
-	// 	} else {
-	// 		return 'red'
-	// 	}
-	// }
-
+const SingleData = ({ title, image, releaseDate }) => {
 	return (
 		<>
 			<div style={{ color: 'white' }} className='SingleDataMedia'>
-				{/* <span className={` tag ${setVoteClass(vote_average)} vote__tag`}>
-					{Math.round(vote_average * 10) / 10}
-				</span> */}
-
 				<img src={image ? image : unavailable} alt='' />
 				<div className='read__more'>
 					<PlayArrowRoundedIcon
@@ -42,7 +27,6 @@ const SingleData = ({ title, type, image, releaseDate }) => {
 						}}
 						className='play__btn'
 					/>
-					{/* <button >Read More</button> */}
 				</div>
 				<div className='SingleDataDetails'>
 					<h6>

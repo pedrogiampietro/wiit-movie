@@ -9,7 +9,7 @@ import {
 } from '../../utils/localStorage'
 
 import './SinglePage.css'
-import { NetPlayerComponent } from '../Players/NetPlayer/SingleVideoPage'
+// import { NetPlayerComponent } from '../Players/NetPlayer/SingleVideoPage'
 import Myloader from 'react-spinners/ClipLoader'
 
 import {
@@ -22,13 +22,9 @@ import {
 
 import accordionStyles from './accordionStyles.module.scss'
 import styles from './styles.module.scss'
-import { ConstructionOutlined } from '@mui/icons-material'
 
 const SinglePage = () => {
-	// eslint-disable-next-line
-
 	const [isLoading, setIsLoading] = useState(true)
-	const [color, setColor] = useState('grey')
 	const [movieDetails, setMovieDetails] = useState({})
 	const [streamData, setStreamData] = useState({})
 	const [episode, setEpisode] = useState({})
@@ -135,6 +131,8 @@ const SinglePage = () => {
 			setStreamData(streamDataObj)
 		}
 		changeEpisode()
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [episode, query])
 
 	// query.get(id) -> tv/watch-slow-horses-full-78697
@@ -150,6 +148,8 @@ const SinglePage = () => {
 		} else {
 			setCurrentEpisode(movieDetails?.episodes[0]?.id)
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [movieDetails.episodes])
 
 	// user changes episode: save current episode to local storage and get new streaming url
@@ -157,13 +157,15 @@ const SinglePage = () => {
 		if (currentEpisode == null || episode.id == null) return
 		saveToLocalStorage(`${episode.id}-episodeNum`, currentEpisode)
 		getStreamURLS(episode.id, query.get('id'), 'upcloud')
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentEpisode])
 
 	return (
 		<>
 			{isLoading ? (
 				<div className='load_app' style={{ height: '500px' }}>
-					<Myloader color={color} size={60} />
+					<Myloader color='gray' size={60} />
 					<p
 						className='pt-4 text-secondary text-loading'
 						style={{ textTransform: 'capitalize', fontSize: '1rem' }}
