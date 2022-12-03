@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import { VimePlayerComponent } from '../Players/VimePlayer'
 import { useLocation } from 'react-router-dom'
-import { unavailable } from '../../api/config/DefaultImages'
+import { unavailable } from '../../assets/DefaultImages'
 
 import {
 	getFromLocalStorage,
@@ -27,7 +27,7 @@ import { ConstructionOutlined } from '@mui/icons-material'
 const SinglePage = () => {
 	// eslint-disable-next-line
 
-	const [isLoading, setIsLoading] = useState(false)
+	const [isLoading, setIsLoading] = useState(true)
 	const [color, setColor] = useState('grey')
 	const [movieDetails, setMovieDetails] = useState({})
 	const [streamData, setStreamData] = useState({})
@@ -74,9 +74,7 @@ const SinglePage = () => {
 			)
 			res = await res.json()
 
-			setTimeout(() => {
-				setIsLoading(false)
-			}, 1000)
+			setIsLoading(false)
 
 			return res
 		} catch (e) {
@@ -134,7 +132,7 @@ const SinglePage = () => {
 				'upcloud'
 			)
 			cleanStreamData(streamDataObj)
-			setStreamData(streamDataObj, setIsLoading(false))
+			setStreamData(streamDataObj)
 		}
 		changeEpisode()
 	}, [episode, query])

@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom'
-import { img_300, unavailable } from '../../api/config/DefaultImages'
+import { img_300, unavailable } from '../../assets/DefaultImages'
 import './SingleData.css'
 import MuiPlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded'
 import { styled } from '@mui/material/styles'

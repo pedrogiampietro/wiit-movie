@@ -8,9 +8,14 @@ import myLogo from './images/wiit-logo.png'
 import RoutesAuth from './config/Routes/RoutesAuth'
 import NotFound from './pages/Errors/NotFound'
 
+import { AuthContextProvider } from './contexts/AuthContext'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './../node_modules/touch-loader/touchLoader'
 import './App.css'
+
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
 	const [spinner, setSpinner] = useState(true)
@@ -24,13 +29,16 @@ function App() {
 	return (
 		<>
 			{!spinner ? (
-				<BrowserRouter>
-					<Switch>
-						{/* <Route exact path="/error" component={NotFound} />
+				<AuthContextProvider>
+					<BrowserRouter>
+						<Switch>
+							{/* <Route exact path="/error" component={NotFound} />
            					 <Route path="/(login)" exact component={RoutesAuth} /> */}
-						<Route path='/' component={Routes} />
-					</Switch>
-				</BrowserRouter>
+							<Route path='/' component={Routes} />
+						</Switch>
+						<ToastContainer />
+					</BrowserRouter>
+				</AuthContextProvider>
 			) : (
 				<div className='load_app' style={{ height: '400px' }}>
 					<Myloader
